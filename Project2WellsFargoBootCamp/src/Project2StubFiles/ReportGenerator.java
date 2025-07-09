@@ -1,24 +1,26 @@
 package Project2StubFiles;
-import java.util.*;
 
-
-
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class ReportGenerator {
-	
-	//no fields, just util class for now.
-	
-	//methods to be implemented later 
-	//method will print a single formatted report line
-	
-	public void printOrderReport()
-	{
-		//empty for now
-	}
-	
-	//method to add later
-	//a method to export to CSV
-	
-	
 
+    public void printReport(List<ClientOrder> clientOrders) {
+        // Sort by filled percentage descending
+        Collections.sort(clientOrders, new Comparator<ClientOrder>() {
+            @Override
+            public int compare(ClientOrder o1, ClientOrder o2) {
+                return Double.compare(o2.getFillPercentage(), o1.getFillPercentage());
+            }
+        });
+
+        for (ClientOrder client : clientOrders) {
+            System.out.println("Client Order " + client.getID()
+                    + " | Symbol: " + client.getSymbol()
+                    + " | Filled: " + client.getFilledQuantity() + " / " + client.getQuantity()
+                    + " | Status: " + client.getStatus());
+        }
+    }
 }
+
